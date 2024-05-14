@@ -57,7 +57,7 @@ runeworks.preloader = (function() {
     })
     // empty "head"
     let m = qselect( `.${settings?.moduleName}` )
-    if (m.length > 1) {
+    if (m?.length && m?.length > 1) {
       m?.forEach(s => s.remove())
     } else {
       m.remove()
