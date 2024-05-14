@@ -42,15 +42,12 @@ runeworks.preloader = (function() {
     },
   }
 
-  // Memory
-  let parent, events, settings;
-  
   /* Memory */
+  let parent, events, settings;
   
   /* Computational variables */
   let loadState = 0, loadLength = 0, loadStartTime = 0;
 
-  
   let clear = function() {
     // send a self-destruct signal to all modules
     raiseEvent( events.destruct )
