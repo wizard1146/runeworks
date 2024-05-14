@@ -17,7 +17,7 @@ runeworks.utilities = (function() {
   /* Extracts numbers provided in an alphanumeric string in a contiguous fashion */
   let clean = function(n) { if (typeof n !== 'string') { return n }; return Number(n.replace(/[^-\d\.]/g,'')) }
   
-  /* Copies any object deeply */
+  /* Copies any object deeply: think this will be replaced with native functions in future */
   let clone = function(obj) {
       let copy
       if (null == obj || 'object' != typeof obj) { return obj }
