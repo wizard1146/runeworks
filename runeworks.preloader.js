@@ -59,8 +59,8 @@ runeworks.preloader = (function() {
     let m = qselect( `.${settings?.moduleName}` )
     if (m?.length && m?.length > 1) {
       m?.forEach(s => s.remove())
-    } else {
-      m.remove()
+    } else if (m) {
+      m?.remove()
     }
   }
   
@@ -117,7 +117,11 @@ runeworks.preloader = (function() {
       }
     
     // begin
-    g( `${settings.prefix}${settings.separator}${parent}.${loadList.shift()}.js` )
+    if (loadList.length > 0) {
+      return g( `${settings.prefix}${settings.separator}${parent}.${loadList.shift()}.js` )
+    } else {
+      return completeInitialisation()
+    }
   }
 
   /* Helper functions */
