@@ -14,6 +14,34 @@ runeworks.utilities = (function() {
       document.body.insertAdjacentHTML('beforeend', output)
     }
   }
+  
+  /* Adjust DPI */
+  let adjustDPI = function( canvas, targetDPI ) {
+    // CSS Size
+    canvas.style.width  = canvas.style.width  || canvas.width  + 'px'
+    canvas.style.height = canvas.style.height || canvas.height + 'px'
+
+    // Scale
+    let isf = (targetDPI ? targetDPI : 96) / 96
+
+    var w  = parseFloat( canvas.style.width )
+    var h  = parseFloat( canvas.style.height )
+
+    var os = canvas.width / w 
+    var bs = isf / os
+    var b  = canvas.cloneNode(false)
+    b.getContext('2d').drawImage(canvas, 0, 0)
+
+    canvas.width  = Math.ceil( w * isf )
+    canvas.height = Math.ceil( h * isf )
+
+    ctx.setTransform( bs, 0, 0, bs, 0, 0 ) 
+    ctx.drawImage( b, 0, 0 )
+    ctx.setTransform( isf, 0, 0, isf, 0, 0 )
+    
+    return [isf, canvas.width, canvas.height]
+  }
+    
   /* Extracts numbers provided in an alphanumeric string in a contiguous fashion */
   let clean = function(n) { if (typeof n !== 'string') { return n }; return Number(n.replace(/[^-\d\.]/g,'')) }
   
@@ -185,6 +213,7 @@ runeworks.utilities = (function() {
   
   return {
     addCSS            :  addCSS,
+    adjustDPI         :  adjustDPI,
     clean             :  clean,
     clone             :  clone,
     commaThis         :  commaThis,
