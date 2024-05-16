@@ -35,6 +35,7 @@ runeworks.utilities = (function() {
     canvas.width  = Math.ceil( w * isf )
     canvas.height = Math.ceil( h * isf )
 
+    let ctx = canvas.getContext('2d')
     ctx.setTransform( bs, 0, 0, bs, 0, 0 ) 
     ctx.drawImage( b, 0, 0 )
     ctx.setTransform( isf, 0, 0, isf, 0, 0 )
