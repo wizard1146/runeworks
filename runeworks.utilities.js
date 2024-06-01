@@ -104,6 +104,15 @@ runeworks.utilities = (function() {
   /* Retrieve the key that maps to a provided value */
   let key = function(obj, v) { for (var prop in obj) { if (obj.hasOwnProperty(prop)) { if (obj[prop] === v) { return prop } } } }
 
+  /* Merge: https://stackoverflow.com/a/1584377 */
+  // merge(['a', 'b', 'c'], ['c', 'x', 'd']) // => ['a', 'b', 'c', 'x', 'd']
+  // merge([{id: 1}, {id: 2}], [{id: 2}, {id: 3}], (a, b) => a.id === b.id)
+  let merge = (a, b, predicate = (a, b) => a === b) => {
+    const c = [...a]
+    b.forEach((bi) => (c.some((ci) => predicate(bi, ci)) ? null : c.push(bi)))
+    return c
+  }
+
   let properCase = function(str) { return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();}); }
 
   let qselect    = function(selector) { let b = document.querySelectorAll( selector ); return b?.length > 1 ? b : document.querySelector( selector ) }
@@ -223,6 +232,7 @@ runeworks.utilities = (function() {
     getAngleFromPoint :  getAngleFromPoint,
     interval          :  interval,
     key               :  key,
+    merge             :  merge,
     properCase        :  properCase,
     qselect           :  qselect,
     raiseEvent        :  raiseEvent,
